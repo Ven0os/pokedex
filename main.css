@@ -119,7 +119,7 @@ li .cartebgr {
 
 .cartepkm-image {
   height: 150px;
-  display: initial;
+  display: initial !important;
 }
 
 .cartepkm-shiny {
