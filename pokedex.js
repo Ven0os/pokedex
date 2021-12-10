@@ -1,7 +1,5 @@
 const pokedex = document.getElementById("pokedex");
 
-const mainTypes = Object.keys(colorTypes);
-
 const fetchPokemon = () => {
   const promises = [];
   for (let i = 1; i <= 898; i++) {
