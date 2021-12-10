@@ -2,7 +2,7 @@ const pokedex = document.getElementById("pokedex");
 
 const fetchPokemon = () => {
   const promises = [];
-  for (let i = 1; i <= 898; i++) {
+  for (let i = 1; i <= 15; i++) {
     const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
     promises.push(fetch(url).then((res) => res.json()));
   }
@@ -29,10 +29,10 @@ const displayPokemon = (pokemon) => {
   const pokemonHTMLString = pokemon
     .map(
       (pokemon) => `
-        <li class="cartepkm">
+        <li class="cartepkm" data-pokeid="${pokemon.id}">
         <div class="cartebgr">
-            <img class="cartepkm-image" src="${pokemon.image}"/>
-            <img class="cartepkm-images" src="${pokemon.images}"/>
+        <img class="cartepkm-image" src="${pokemon.image}"/>
+            <img class="cartepkm-shiny" data-pokeid="${pokemon.id}" src="${pokemon.images}"/>
             <h2 class="cartepkm-title">${pokemon.id} - ${pokemon.name}</h2>
             <p class="cartepkm-subtitle">Type: ${pokemon.type}</p>
             <p class="cartepkm-subtitle">Poids et taille: ${pokemon.height}m ${pokemon.weight}kg</p>
@@ -41,16 +41,19 @@ const displayPokemon = (pokemon) => {
     `
     )
     .join("");
+
   pokedex.innerHTML = pokemonHTMLString;
+  let afficherShiny = document.querySelectorAll(".cartepkm");
+
+  afficherShiny.forEach((element) =>
+    element.addEventListener("click", (event) => {
+      const id = event.target.getAttribute("data-pokeid");
+      const cacherShiny = document.querySelector(
+        `.cartepkm-shiny[data-pokeid="${id}"]`
+      );
+      cacherShiny.style.display = "block";
+    })
+  );
 };
 
 fetchPokemon();
-
-let afficherShiny = document.querySelector(".cartepkm");
-let cacherShiny = document.querySelector(".cartepkm-images");
-
-afficherShiny.onclick = function () {
-  afficherShiny.addEventListener("click", function () {
-    cacherShiny.style.display = "none";
-  });
-};

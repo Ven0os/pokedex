@@ -122,8 +122,9 @@ li .cartebgr {
   display: initial;
 }
 
-.cartepkm-images {
+.cartepkm-shiny {
   height: 150px;
+  display: none;
 }
 
 @keyframes bounce {
